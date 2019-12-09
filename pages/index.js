@@ -19,6 +19,19 @@ class Index extends Component{
         }
         return { page, stories };
     }
+
+    componentDidMount(){
+        if("serviceWorker" in navigator){
+            navigator.serviceWorker
+                .register("/service-worker.js")
+                .then(registration => {
+                    console.log("service worker registration successful", registration);
+                }).catch(error => {
+                    console.warn("service worker registration failed", error.message);
+                });
+        }
+    }
+
     render(){
         const { stories, page } = this.props;
         if( stories.length === 0){
